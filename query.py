@@ -71,6 +71,7 @@ parser.add_argument('-c', '--count', help="The number of submissions to query. D
 parser.add_argument('-p', '--prompt', help="Force a password prompt, skipping .kattisrc, for login.", action = 'store_true')
 parser.add_argument('-s', '--sieve', help="Output only submission to the problems with the given problem IDs.", nargs = '+')
 parser.add_argument('--problems', help="Print COUNT submissions for the given problems, in the order given.", nargs = '+')
+parser.add_argument('--minimal', help="Print only the status of the submissions.", action = 'store_true')
 args = parser.parse_args()
 if args.format:
     format_bold = '\033[1m'
@@ -202,33 +203,36 @@ else:
         print("Warning: Number of requested submissions is larger than total submissions of account.")
 
 for e in recent_submissions:
-    if sieve is None or e[2] in sieve:
-        if ncmp(e[3], 'Accepted', 8):
-            print(format_bold, end = '')
-        print(e[0], end = '')
-        for i in range(4 + max_sid_length - len(e[0])):
-            print(' ', end = '')
-        print(e[1], e[2], end = '')
-        for i in range(4 + max_problemname_length - len(e[2])):
-            print(' ', end = '')
-        if ncmp(e[3], 'Accepted', 8):
-            print(format_green, end = '')
-        elif ncmp(e[3], 'New', 3) or ncmp(e[3], 'Running', 7) or ncmp(e[3], 'Judge', 5):
-            print(format_yellow, end = '')
-        else:
-            print(format_red, end = '')
-            
-        print(e[3], end = format_end)
-        for i in range(4 + max_status_length - len(e[3])):
-            print(' ', end = '')
-        print(e[4], end = '')
-        for i in range(4 + max_lang_length - len(e[4])):
-            print(' ', end = '')
-        print(e[5], end = '')
-        if ncmp(e[3], 'Accepted', 8):
-            print (format_end)
-        else:
-            print()
+    if args.minimal:
+        print(e[3])
+    else:
+        if sieve is None or e[2] in sieve:
+            if ncmp(e[3], 'Accepted', 8):
+                print(format_bold, end = '')
+            print(e[0], end = '')
+            for i in range(4 + max_sid_length - len(e[0])):
+                print(' ', end = '')
+            print(e[1], e[2], end = '')
+            for i in range(4 + max_problemname_length - len(e[2])):
+                print(' ', end = '')
+            if ncmp(e[3], 'Accepted', 8):
+                print(format_green, end = '')
+            elif ncmp(e[3], 'New', 3) or ncmp(e[3], 'Running', 7) or ncmp(e[3], 'Judge', 5):
+                print(format_yellow, end = '')
+            else:
+                print(format_red, end = '')
+                
+            print(e[3], end = format_end)
+            for i in range(4 + max_status_length - len(e[3])):
+                print(' ', end = '')
+            print(e[4], end = '')
+            for i in range(4 + max_lang_length - len(e[4])):
+                print(' ', end = '')
+            print(e[5], end = '')
+            if ncmp(e[3], 'Accepted', 8):
+                print (format_end)
+            else:
+                print()
 
 if args.problems is not None:
     print("Number of submission per problem")
