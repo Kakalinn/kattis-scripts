@@ -4,6 +4,23 @@
 #   python3
 #   the request package for python 3
 #   bs4 (Beautiful soup 4)
+#
+# Examples:
+#   ./query.py
+#       - Shows a list of your last few submissions.
+#   ./query.py -c 10
+#       - Shows a list of your 10 latest submissions.
+#   ./query.py -c 5 --problems 3sideddice hello carrots digbuild
+#       - Shows you your five latest submission to 3sideddice, hello,
+#         carrots, digbuild (so in total, up to 20 submissions).
+#   ./query.py -c 10 -f
+#       - Shows a color-coded list of your 10 latest submissions.
+#   ./query.py -c 10 -f -p
+#       - Shows a color-coded list of your 10 latest submissions, but
+#         instead of looking for a .kattisrc file it prompts you for
+#         a username and password.
+
+
 import argparse
 import configparser
 import getpass
