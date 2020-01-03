@@ -99,15 +99,6 @@ max_lang_length = 0
 if args.count:
     no_submissions = int(args.count)
 sess = requests.Session()
-login_url = 'https://open.kattis.com/login/email'
-login_req = sess.get(login_url)
-login_html = bs4.BeautifulSoup(login_req.text, "html.parser")
-
-#check if remove can i
-for form in login_html.find_all('form'):
-    if 'login' in form['action']:
-        login_form = form
-        break
 
 if args.prompt:
     login_data = prompt_login()
@@ -140,15 +131,14 @@ else:
             if token:
                 login_data['token'] = token
 
-login_post_url = urllib.parse.urljoin(login_url, login_form['action'])
-login_post_req = sess.post(login_post_url, data=login_data)
-login_post_html = bs4.BeautifulSoup(login_post_req.text, "html.parser")
+login_req = sess.post('https://open.kattis.com/login/email', data=login_data)
+login_html = bs4.BeautifulSoup(login_req.text, "html.parser")
 
-if login_post_req.status_code != 200:
+if login_req.status_code != 200:
     print('Login failed.')
-    if login_post_req.status_code == 403:
+    if login_req.status_code == 403:
         print('Incorrect username or password/token (403)')
-    elif login_post_req.status_code == 404:
+    elif login_req.status_code == 404:
         print('Incorrect login URL (404)')
     else:
         print('Status code:', login_reply.status_code)
