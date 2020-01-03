@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+
+# Dependencies:
+#   python3
+#   the request package for python 3
+#   bs4 (Beautiful soup 4)
 import argparse
 import configparser
 import getpass
