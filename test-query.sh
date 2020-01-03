@@ -6,4 +6,5 @@ clear
 ./query.py -c 5 --problems 3sideddice hello carrots digbuild -p
 ./query.py -c 10 -f
 ./query.py -c 10 -f -p
-
+./query.py -c 1 -m
+./query.py -c -1 --problems hello

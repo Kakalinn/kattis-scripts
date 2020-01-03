@@ -19,7 +19,10 @@
 #       - Shows a color-coded list of your 10 latest submissions, but
 #         instead of looking for a .kattisrc file it prompts you for
 #         a username and password.
-
+#   ./query.py -c 1 -m
+#       - Prints the status of your most recent submission.
+#   ./query.py -c -1 --problems hello
+#       - Prints allof your submission to the problem hello.
 
 import argparse
 import configparser
@@ -70,8 +73,8 @@ parser.add_argument('-f', '--format', help="Formats the output depending on ech 
 parser.add_argument('-c', '--count', help="The number of submissions to query. Default is %d. Use -1 for unlimited submissions." % no_submissions)
 parser.add_argument('-p', '--prompt', help="Force a password prompt, skipping .kattisrc, for login.", action = 'store_true')
 parser.add_argument('-s', '--sieve', help="Output only submission to the problems with the given problem IDs.", nargs = '+')
+parser.add_argument('-m', '--minimal', help="Print only the status of the submissions.", action = 'store_true')
 parser.add_argument('--problems', help="Print COUNT submissions for the given problems, in the order given.", nargs = '+')
-parser.add_argument('--minimal', help="Print only the status of the submissions.", action = 'store_true')
 args = parser.parse_args()
 if args.format:
     format_bold = '\033[1m'
